@@ -1,0 +1,5 @@
+aws_region    = "us-east-1"
+project_name  = "shortener"
+image_tag     = "latest"
+desired_count = 2
+db_password   = "replace-with-a-generated-password"
