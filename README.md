@@ -4,6 +4,8 @@ A URL shortener built with FastAPI and deployed on AWS ECS Fargate. Docker conta
 
 The application itself is deliberately small. The point of the repository is everything around it: how a container reaches production on AWS, and how the code stays independent of the place it runs.
 
+This is one half of a pair. [`aws-serverless-fastapi`](https://github.com/jesusroncal94/aws-serverless-fastapi) runs the **same API, with the same domain layer**, on AWS Lambda with DynamoDB. That repository sets the two side by side in a table: what changes when the runtime model changes, and what does not have to.
+
 ## The API
 
 | Method | Path           | Description                                    |
@@ -43,6 +45,8 @@ src/shortener/
 ```
 
 `domain/` does not import SQLAlchemy. It declares the `LinkRepository` protocol it needs and receives an implementation through the constructor, so the same use cases run against PostgreSQL in production and SQLite in the test suite. Swapping the storage engine is a matter of writing one class.
+
+The same package, unchanged, backs the Lambda deployment in the companion repository. Moving between PostgreSQL and DynamoDB costs one new file.
 
 ## Running it locally
 
